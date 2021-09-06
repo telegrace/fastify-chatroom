@@ -1,13 +1,44 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Registration() {
 	const inputElement = useRef<HTMLInputElement>(null);
+	const [formValues, setFormValues] = useState({
+		username: "",
+		email: "",
+		password: "",
+		passwordVerify: "",
+	});
 
 	useEffect(() => {
 		if (inputElement.current) {
 			inputElement.current.focus();
 		}
 	});
+
+	function verifyPasswords(password: string, passwordVerify: string) {
+		console.log("password ", password, "passwordVerify ", passwordVerify);
+		if (password === passwordVerify) {
+			console.log("verify Passwords, true");
+			return true;
+		}
+		console.log("verify Passwords, false");
+		return false;
+	}
+
+	function formChangeHandler(event: React.FormEvent<HTMLInputElement>) {
+		setFormValues((state) => {
+			return {
+				...state,
+				[event.currentTarget.id]: event.currentTarget.value,
+			};
+		});
+
+		verifyPasswords(formValues.password, formValues.passwordVerify);
+	}
+
+	function registerUser(event: object) {
+		console.log("register");
+	}
 
 	return (
 		<div className="container mx-auto w-50 p-1">
@@ -28,7 +59,7 @@ export default function Registration() {
 					<input
 						type="email"
 						className="form-control"
-						id="exampleInputEmail1"
+						id="email"
 						aria-describedby="emailHelp"
 						placeholder="Enter email"
 					/>
@@ -41,12 +72,25 @@ export default function Registration() {
 					<input
 						type="password"
 						className="form-control"
-						id="exampleInputPassword1"
+						id="password"
+						placeholder="Password"
+					/>
+				</div>
+				<div className="form-group">
+					<label htmlFor="password">Verify password</label>
+					<input
+						type="password"
+						className="form-control"
+						id="passwordVerify"
 						placeholder="Password"
 					/>
 				</div>
 
-				<button type="submit" className="btn btn-primary">
+				<button
+					type="button"
+					onClick={formChangeHandler}
+					className="btn btn-primary"
+				>
 					Submit
 				</button>
 			</form>

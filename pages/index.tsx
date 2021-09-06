@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
 	return (
 		<>
@@ -6,9 +8,29 @@ export default function Home() {
 				User should be automatically sent to login if there are cookies,
 				and register is there are no cookies
 			</p>
-			<h1>Register</h1>
-			<h1>Login</h1>
-			<h1>Chat</h1>
+
+			<ul>
+				<li>
+					<Link href="/registration">
+						<a>Register</a>
+					</Link>
+				</li>
+				<li>
+					<Link href="/login">
+						<a>Login</a>
+					</Link>
+				</li>
+				<li>
+					<Link href="/forgot">
+						<a>Forgot your password?</a>
+					</Link>
+				</li>
+				<li>
+					<Link href="/chat">
+						<a>Chat</a>
+					</Link>
+				</li>
+			</ul>
 		</>
 	);
 }
